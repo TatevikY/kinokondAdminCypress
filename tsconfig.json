@@ -5,6 +5,6 @@
     "types": ["cypress", "node"],
     "noEmit": true
   },
-  "include": ["**/*.ts"],
-  "noEmit": true
+  "include": ["**/*.ts", "cypress/e2e/dbConnection.cy.js"],
+  "noEmit": true,
 }

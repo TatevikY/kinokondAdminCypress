@@ -1,18 +1,54 @@
-import {Login} from '../support/src/login';
-import {Genres} from '../support/src/genres'; 
+import {Login} from '../support/src/a_login';
+import {Genres} from '../support/src/d_genres'; 
 
 const login = new Login();
 const genres = new Genres();
 
 beforeEach(() =>{
-    login.login()
-    genres.open_genres_page()
+     cy.task("connectDB", 'delete from genres')
+     login.login()
+     genres.open_genres_page()
 });
 
-it('sort by id',() => {
+it('Create new genres', () =>{
+     let genresName = Date().toLocaleUpperCase()
+     genres.create_new_genres()
+     cy.get('[id="inputtext"]').clear().type(genresName)
+     cy.get('[class="p-button-label"]').contains('Save').click()
+     cy.get('table').contains('td',genresName).should('exist')
+})
+
+it('Create new genres and click cancel', () =>{
+     genres.create_new_genres()
+     cy.get('[id="inputtext"]').clear().type('cancelTest')
+     cy.get('[class="p-button-label"]').contains('Cancel').click()
+     cy.get('table').contains('td','cancelTest').should('not.exist')
+})
+
+it('Create new genres and edit it', () => {
+     genres.create_new_genres()
+     cy.get('[id="inputtext"]').clear().type('NewGenresToEdit')
+     cy.get('[class="p-button-label"]').contains('Save').click()
+     
+     cy.reload()
+
+     cy.get('table').contains('td','NewGenresToEdit').get('[class="p-element p-button-rounded p-button-success mr-2 p-button p-component p-button-icon-only"]').click()
+     cy.get('[class="p-overflow-hidden"]').get('[id="inputtext"]').clear().type('EditedGenres')
+     cy.get('[class="p-button-label"]').contains('Save').click()
+     
+     cy.reload()
+
+     cy.get('table').contains('td','NewGenresToEdit').should('not.exist')
+     cy.get('table').contains('td','EditedGenres').should('exist')
+}
+)
+
+/*it('sort by id',() => {
    cy.get('[psortablecolumn="id"][class="p-element p-sortable-column"]')
         .should('be.visible')
         .click()
    cy.get('[psortablecolumn="id"][class="p-element p-sortable-column p-highlight"][aria-sort="ascending"]')
         .should('be.visible')
-})
+})*/
+
+

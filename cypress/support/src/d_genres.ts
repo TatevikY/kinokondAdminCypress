@@ -1,99 +1,109 @@
+import { WebElements } from "./webElements";
+
+const webElements = new WebElements();
+
 export class Genres{
-
+    
     open_genres_page(){
-        //click on genres in menu
-        cy.get('[class="layout-menuitem-text ng-tns-c21-7"]').click()
-
+        webElements.genres_page_genres_menu_item().click()
     }
 
-    create_new_genres(){
-        cy.get('[class="p-button-label"]').contains('New').click()
-        
+    public genresName:string =  'createNewGenres'
+
+    create_new_genres_click_yes(){
+        webElements.genres_page_new_button().click()
+        webElements.genres_page_new_genres_inputText().clear().type(this.genresName)
+        webElements.genres_page_new_genres_SAVE_button().click()
+    }
+
+    create_new_genres_click_no(){
+        webElements.genres_page_new_button().click()
+        webElements.genres_page_new_genres_inputText().clear().type(this.genresName)
+        webElements.genres_page_new_genres_CANCEL_button().click()
+    }
+
+    genres_bulk_add(j){
+        for (let i = 1; i <= j; i++) {
+            this.open_genres_page()
+            this.create_new_genres_click_yes()
+            webElements.genres_page_new_genres_inputText().clear().type('NewGenresToEdit' +i)
+            webElements.genres_page_new_genres_SAVE_button().click()
+            cy.reload()
+       }
     }
 
     edit_genres(){
-        cy.get('[class="p-button-icon pi pi-pencil"]').click()
+        webElements.genres_page_edit_button().click()
         
     }
 
     enable_disable_genres(){
-        cy.get('[class="p-button-icon pi pi-circle"]').click()
+        webElements.genres_page_enable_disable_genres_button().click()
         
     }
 
     delete_genres(){
-        cy.get('[class="p-button-icon pi pi-trash"]').click()
+        webElements.genres_page_delete_genres_button().click()
         
     }
 
     sort_genres_by_id(){
-        cy.get('[ng-reflect-field="id"]').click()
+        webElements.genres_page_sort_genres_by_id().click()
         
     }
 
     sort_genres_by_name(){
-        cy.get('[ng-reflect-ng-class="[object Object]"]').click()
+        webElements.genres_page_sort_genres_by_name().click()
         
     }
 
     sort_genres_by_status(){
-        cy.get('[ng-reflect-field="status"]').click()
+        webElements.genres_page_sort_genres_by_status().click()
         
     }
 
     click_angle_left(){
-        cy.get('[class="p-paginator-icon pi pi-angle-left"]').click()
+        webElements.genres_page_click_angle_left().click()
         
     }
     
     click_angle_double_left(){
-        cy.get('[class="p-paginator-icon pi pi-angle-double-left"]').click()
+        webElements.genres_page_click_angle_double_left().click()
         
     }
 
     click_angle_right(){
-        cy.get('[class="p-paginator-icon pi pi-angle-right"]').click()
+        webElements.genres_page_click_angle_right().click()
         
     }
 
     click_angle_double_right(){
-        cy.get('[class="p-paginator-icon pi pi-angle-double-right"]').click()
+        webElements.genres_page_click_angle_double_right().click()
         
     }
 
     click_page_dropdown(){
-        cy.get('[class="p-dropdown-trigger ng-tns-c72-25"]').click()
+        webElements.genres_page_click_page_dropdown().click()
         
     }
 
     click_10_on_page(){
-        cy.get('[ng-reflect-label="10"]').click()
+        webElements.genres_page_click_10_on_page().click()
         
     }
 
     click_20_on_page(){
-        cy.get('[ng-reflect-label="20"]').click()
+        webElements.genres_page_click_20_on_page().click()
         
     }
 
     click_30_on_page(){
-        cy.get('[ng-reflect-label="30"]').click()
+        webElements.genres_page_click_30_on_page().click()
         
     }
 
     click_nth_page(){
-        cy.get('[class="p-ripple p-element p-paginator-page p-paginator-element p-link ng-star-inserted"]').click()
+        webElements.genres_page_click_nth_page().click()
         
     }
 } 
-
-
-
-
-
-
-
-
-
-
-

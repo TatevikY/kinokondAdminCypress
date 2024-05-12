@@ -1,30 +1,21 @@
 import {Login} from '../support/src/a_login';
+import { WebElements } from "../support/src/webElements";
 
 const login = new Login();
+const webElements = new WebElements();
 
-beforeEach(() =>{
+before(() =>{
     login.login()
 });
 
 //TC check if after login following elements are present
 
 it('Login',() => {
-    //logo
-    cy.get('[alt="logo"]')
-        .should('be.visible')
-    cy.get('[class="layout-topbar-logo"]')
-        .contains('KinoKond')
-        .should('be.visible')
-    //Home
-    cy.get('.ng-tns-c21-4.layout-root-menuitem > .layout-menuitem-root-text')
-        .contains('Home')
-        .should('be.visible')
-    //Total users
-    cy.get('[class="block text-500 font-medium text-cyan-900"]')
-        .should('be.visible')
-        .should('have.text','Total Users')
-    //User icon/menu
-    cy.get('[class="pi pi-user"]')
-        .should('be.visible')
+
+    webElements.dashboard_page_logo().should('be.visible')
+    webElements.dashboard_page_KinoKond_text().contains('KinoKond').should('be.visible')
+    webElements.dashboard_page_HomeMenu().contains('Home').should('be.visible')
+    webElements.dashboard_page_Total_Users_text().should('be.visible').should('have.text','Total Users')
+    webElements.dashboard_page_User_Icon().should('be.visible')
 
 })

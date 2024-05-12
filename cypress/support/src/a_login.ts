@@ -1,3 +1,7 @@
+import { WebElements } from "./webElements";
+
+const webElements = new WebElements();
+
 export class Login{
     baseURL: string = 'http://localhost:4200/';
     username: string = 'tatevikyyy';
@@ -5,7 +9,7 @@ export class Login{
 
     login(){
         cy.visit(this.baseURL)
-        cy.get('#username').clear().type(this.username)
-        cy.get('[type="password"]').clear().type(this.pwd).type('{enter}')
+        webElements.login_page_username().clear().type(this.username)
+        webElements.login_page_password().clear().type(this.pwd).type('{enter}')
     }
 };

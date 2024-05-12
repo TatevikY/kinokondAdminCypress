@@ -1,3 +1,7 @@
+import { WebElements } from "./webElements";
+
+const webElements = new WebElements();
+
 export class MenuBar{
     click_on_menu_bar(){
         cy.get('[class="pi pi-bars"]').click()
